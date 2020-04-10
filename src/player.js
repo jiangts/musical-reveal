@@ -27,6 +27,12 @@ dom.watch();
  *
  */
 
+const rotationClasses = {
+  90: 'rotateimg90',
+  180: 'rotateimg180',
+  270: 'rotateimg270',
+}
+
 export default class Player {
   constructor(multimedia={}, config={}) {
     const {
@@ -96,11 +102,18 @@ export default class Player {
     $root.empty()
     this.slides.forEach(slide => {
       const {
-        img,
+        img = {},
         text,
         background={}
       } = slide
-      const imgHTML = img ? `<img src=${img.src}></img>` : ''
+
+      let imgClasses = []
+      if(img.rotate && rotationClasses[img.rotate]) {
+        imgClasses.push(rotationClasses[img.rotate])
+      }
+      const imgClassesHTML = imgClasses.length > 0 ? `class="${imgClasses.join(' ')}"` : '';
+
+      const imgHTML = img ? `<img src=${img.src} ${imgClassesHTML}></img>` : ''
       const textHTML = text ? `<span style="color:${text.color};">${text.value}</span>` : ''
       const $slide = $(`<section>${imgHTML}${textHTML}</section>`)
 
