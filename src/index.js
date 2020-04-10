@@ -1,2 +1,3 @@
 import Reveal from './reveal';
-export { Reveal };
+import Player from './player'
+export { Reveal, Player };
