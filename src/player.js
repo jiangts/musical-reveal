@@ -5,6 +5,9 @@ import { library, dom } from "@fortawesome/fontawesome-svg-core";
 import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons'
 library.add(faPlay, faPause);
 dom.watch();
+import EmojiConvertor from 'emoji-js'
+const emoji = new EmojiConvertor();
+
 
 /*
  *  {
@@ -102,19 +105,20 @@ export default class Player {
     $root.empty()
     this.slides.forEach(slide => {
       const {
-        img = {},
+        img,
         text,
         background={}
       } = slide
 
       let imgClasses = []
-      if(img.rotate && rotationClasses[img.rotate]) {
+      if(img && img.rotate && rotationClasses[img.rotate]) {
         imgClasses.push(rotationClasses[img.rotate])
       }
       const imgClassesHTML = imgClasses.length > 0 ? `class="${imgClasses.join(' ')}"` : '';
 
       const imgHTML = img ? `<img src=${img.src} ${imgClassesHTML}></img>` : ''
-      const textHTML = text ? `<span style="color:${text.color};">${text.value}</span>` : ''
+      let textHTML = text ? `<span style="color:${text.color};">${text.value}</span>` : ''
+      textHTML = emoji.replace_colons(textHTML)
       const $slide = $(`<section>${imgHTML}${textHTML}</section>`)
 
       const backgroundAttrs = {}
@@ -189,7 +193,6 @@ export default class Player {
     // change slide and audio to match position
     this.seekSlide(position)
     this.audio.node.currentTime = position
-    console.log(this.audio.node.readyState)
     this.bus.emit('seek')
   }
 
