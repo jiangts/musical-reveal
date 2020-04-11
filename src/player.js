@@ -85,8 +85,8 @@ export default class Player {
 
   renderControls() {
     const $controls = $(`
-    <div style="position: fixed; bottom: 10px; left: 10px; cursor: pointer; padding: 5px; z-index: 1000">
-      <i class="fas fa-play"></i>
+    <div style="position: fixed; bottom: 1em; left: 1em; cursor: pointer; padding: 5px; z-index: 1000">
+      <i class="fas fa-play" style="width: 2em; height: 2em;"></i>
     </div>
     `).click(e => {
       this.playing ? this.pause() : this.play()
@@ -140,7 +140,7 @@ export default class Player {
 
       const slidePosition = this.currentSlide / this.slides.length * this.duration
       console.log(this.currentSlide, slidePosition, this.position)
-      if(Math.abs(this.position - slidePosition) > 1) {
+      if(this.playing && Math.abs(this.position - slidePosition) > 1) {
         this.seek(slidePosition)
       }
     });
