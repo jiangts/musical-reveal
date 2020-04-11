@@ -14,6 +14,9 @@ Simple JSON interface to define audio synchronized slideshow over [reveal.js](ht
 
 
 
-## Example app
+## Usage & Example app
 
 After building, start static webserver in the `app/` directory.
+Usage API can be found in [`app/js/index.js`](https://github.com/jiangts/musical-reveal/blob/master/app/js/index.js).
+
+Slide rendering functions can be found in the `renderSlides` method of the `Player` class found in [`src/player.js`](https://github.com/jiangts/musical-reveal/blob/master/src/player.js).
