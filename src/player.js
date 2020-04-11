@@ -1,12 +1,12 @@
 import Reveal from './reveal';
 import EventEmitter from 'eventemitter3'
 import $ from 'jquery'
-import { library, dom } from "@fortawesome/fontawesome-svg-core";
-import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons'
-library.add(faPlay, faPause);
-dom.watch();
-import EmojiConvertor from 'emoji-js'
-const emoji = new EmojiConvertor();
+// import { library, dom } from "@fortawesome/fontawesome-svg-core";
+// import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons'
+// library.add(faPlay, faPause);
+// dom.watch();
+// import EmojiConvertor from 'emoji-js'
+// const emoji = new EmojiConvertor();
 
 
 /*
@@ -86,7 +86,7 @@ export default class Player {
   renderControls() {
     const $controls = $(`
     <div style="position: fixed; bottom: 1em; left: 1em; cursor: pointer; padding: 5px; z-index: 1000">
-      <i class="fas fa-play" style="width: 2em; height: 2em;"></i>
+      <i class="fas fa-play" style="font-size: 2em;"></i>
     </div>
     `).click(e => {
       this.playing ? this.pause() : this.play()
@@ -118,7 +118,7 @@ export default class Player {
 
       const imgHTML = img ? `<img src=${img.src} ${imgClassesHTML}></img>` : ''
       let textHTML = text ? `<span style="color:${text.color};">${text.value}</span>` : ''
-      textHTML = emoji.replace_colons(textHTML)
+      // textHTML = emoji.replace_colons(textHTML)
       const $slide = $(`<section>${imgHTML}${textHTML}</section>`)
 
       const backgroundAttrs = {}
@@ -162,7 +162,7 @@ export default class Player {
     if(this.audio.src) {
       this.audio.node.play()
     }
-    this.$controls.find('svg').addClass('fa-pause').removeClass('fa-play')
+    this.$controls.find('i').addClass('fa-pause').removeClass('fa-play')
     this.bus.emit('play')
   }
 
@@ -170,7 +170,7 @@ export default class Player {
     clearInterval(this.timer)
     this.timer = null
     this.audio.node.pause()
-    this.$controls.find('svg').addClass('fa-play').removeClass('fa-pause')
+    this.$controls.find('i').addClass('fa-play').removeClass('fa-pause')
     this.bus.emit('pause')
   }
 
